@@ -35,8 +35,11 @@ Le backend suit une architecture en couches pour une meilleure maintenance :
 - Maven 3.x
 
 ### 2. Configuration de la Base de Données
-1. Créez une base de données PostgreSQL nommée `svs_db`.
-2. Ouvrez le fichier `src/main/resources/application.properties` et configurez vos accès :
+1. Créez une base de données PostgreSQL nommée `svs_db`
+   ```
+   sql CREATE DATABASE svs_db;
+   ```
+3. Ouvrez le fichier `src/main/resources/application.properties` et configurez vos accès :
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/svs_db
