@@ -13,6 +13,7 @@ import com.example.demo.exception.User.MatriculeAlreadyExistsException;
 import com.example.demo.exception.User.UserAlreadyExistsException;
 import com.example.demo.exception.User.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -133,5 +134,31 @@ public class UserService {
 
     public long countUsers() {
         return userRepository.count();
+    }
+
+    public Utilisateurs authenticate(String matricule, String motDePasse) {
+        // Vérifier si l'utilisateur existe dans la base de données
+        Utilisateurs user = userRepository.findByMatricule(matricule);
+
+        // Si l'utilisateur existe et que le mot de passe est correct
+        if (user != null && new BCryptPasswordEncoder().matches(motDePasse, user.getMotDePasse())) {
+            return user;  // Utilisateur authentifié
+        }
+
+        return null;  // Echec d'authentification
+    }
+
+    public Utilisateurs register(Utilisateurs user) {
+        // Vérifier si le matricule est déjà pris
+        if (userRepository.findByMatricule(user.getMatricule()) != null) {
+            return null;  // Le matricule est déjà pris
+        }
+
+        // Encoder le mot de passe
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getMotDePasse());
+        user.setMotDePasse(encodedPassword);
+
+        // Sauvegarder l'utilisateur dans la base de données
+        return userRepository.save(user);
     }
 }
