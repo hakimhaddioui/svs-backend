@@ -36,9 +36,9 @@ Le backend suit une architecture en couches pour une meilleure maintenance :
 
 ### 2. Configuration de la Base de Données
 1. Créez une base de données PostgreSQL nommée `svs_db`
-   ```
-   sql CREATE DATABASE svs_db;
-   ```
+```
+sql CREATE DATABASE svs_db;
+```
 3. Ouvrez le fichier `src/main/resources/application.properties` et configurez vos accès :
 
 ```properties
@@ -55,3 +55,5 @@ Lancer le serveur Backend :
 ```bash 
 mvn spring-boot:run
 ```
+### 📄 Licence Projet 
+développé pour l'ONCF, Département Informatique, Système d'Information et Transformation Digitale, Par ✅**HAKIM HADDIOUI**.
